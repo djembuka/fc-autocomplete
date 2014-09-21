@@ -65,6 +65,21 @@ module.exports = function(grunt) {
         tasks: ['jshint:test', 'qunit']
       },
     },
+	express: {
+		options: {
+		  // Override defaults here
+		},
+		dev: {
+		  options: {
+			server: path.resolve('./server')
+		  }
+		}
+	  },
+	server: {
+		port: 8080,
+		base: './',
+		path: "index.html"
+	  }
   });
 
   // These plugins provide necessary tasks.
@@ -74,8 +89,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-express-server');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'qunit', 'clean', 'concat', 'uglify']);
+  grunt.registerTask('server', 'Start a custom web server.', function() {
+	  grunt.log.writeln('Starting web server on port 1234.');
+	  require('./server.js').listen(1234);
+	});
 
 };
