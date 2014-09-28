@@ -19,9 +19,15 @@
 <body>
   <div id="qunit"></div>
   <div id="qunit-fixture">
-    <span>lame test markup</span>
-    <span>normal test markup</span>
-    <span>awesome test markup</span>
+  
+		<div id="recipeSearch" class="b-recipe-search">
+			<form action="/search/" method="post">
+				<div>
+					<input type="text" value="" autocomplete="off" class="b-recipe-search__input">
+				</div>
+				<button class="b-recipe-search__button"></button>
+			</form>
+		</div>
   </div>
 </body>
 </html>
