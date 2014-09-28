@@ -21,36 +21,36 @@
   };
   
   Autocomplete.DEFAULTS = {
-			itemsNum : {
-			recipes: 5,
-			dishes: 3,
-			ingredients: 3,
-			cuisines: 3
-		},
-		blockTitles: [
-			"recipes",
-			"dishes",
-			"ingredients",
-			"cuisines"
-		],
-		itemClass: "b-rs__item",
-		linkClass: "b-rs__item__link",
-		headingClass: "b-rs__heading",
-		strClass: "b-rs-str",
-		searchAllClass: "b-rs__search-all",
-		itemTag: "li"
+      itemsNum : {
+      recipes: 5,
+      dishes: 3,
+      ingredients: 3,
+      cuisines: 3
+    },
+    blockTitles: [
+      "recipes",
+      "dishes",
+      "ingredients",
+      "cuisines"
+    ],
+    itemClass: "b-rs__item",
+    linkClass: "b-rs__item__link",
+    headingClass: "b-rs__heading",
+    strClass: "b-rs-str",
+    searchAllClass: "b-rs__search-all",
+    itemTag: "li"
   };
   
   Autocomplete.prototype.init = function ( element, options ) {
     this.enabled   = true
     this.$element  = $( element );
-	  this.options = this.getOptions( options );
-		this.$input = this.$element.find(".b-recipe-search__input");
-		this.$activeItem = this.$input;// active list item (highlighted by keyboard arrows)
-		this.elemValue = $.trim( this.$input.val() );
-		//this.$delete = this.$elem.find(".b-recipe-search__delete");
-		//this.$button = this.$elem.find(".b-recipe-search__button");
-		// ! Create option for additional form elements like delete and send buttons.
+    this.options = this.getOptions( options );
+    this.$input = this.$element.find(".b-recipe-search__input");
+    this.$activeItem = this.$input;// active list item (highlighted by keyboard arrows)
+    this.elemValue = $.trim( this.$input.val() );
+    //this.$delete = this.$elem.find(".b-recipe-search__delete");
+    //this.$button = this.$elem.find(".b-recipe-search__button");
+    // ! Create option for additional form elements like delete and send buttons.
   };
 
   Autocomplete.prototype.getDefaults = function () {
@@ -67,52 +67,52 @@
   };
   
   Autocomplete.prototype.setOption = function( option, value ) {
-	this.options[ option ] = value;
+  this.options[ option ] = value;
   };
   
   Autocomplete.prototype.destroy = function() {
-	this.$element.off( ".fc_autocomplete" ).removeData( "fc_autocomplete" );
+  this.$element.off( ".fc_autocomplete" ).removeData( "fc_autocomplete" );
   };
   
   // AUTOCOMPLETE PLUGIN DEFINITION
   // =========================
 
   function Plugin( option, params ) {
-	
-	//If call the plugin for an option value
-	var result;
-	
-	if ( typeof option === 'string' ) {
-	  this.each( function() {
-		  var $this = $( this ),
-			  data = $this.data( "fc_autocomplete" );
-		  
-		  if ( !data ) return;
-		  
-		  if ( typeof data[option] === "function" ) {
-				data[ option ]( params );
-			
-		  } else if ( params ) {
-				data.setOption( option, params );
-			
-		  } else {
-			  result = data.getOption( option ) || "";
-		  }      
-		});
-		
-		if ( result || result === "" ) return result;
-		return this;
-	}
-	
-	//If call for method or a new instance
+  
+  //If call the plugin for an option value
+  var result;
+  
+  if ( typeof option === 'string' ) {
+    this.each( function() {
+      var $this = $( this ),
+        data = $this.data( "fc_autocomplete" );
+      
+      if ( !data ) return;
+      
+      if ( typeof data[option] === "function" ) {
+        data[ option ]( params );
+      
+      } else if ( params ) {
+        data.setOption( option, params );
+      
+      } else {
+        result = data.getOption( option ) || "";
+      }      
+    });
+    
+    if ( result || result === "" ) return result;
+    return this;
+  }
+  
+  //If call for method or a new instance
     return this.each( function () {
       var $this   = $( this ),
-	      data    = $this.data( 'fc_autocomplete' ),
+        data    = $this.data( 'fc_autocomplete' ),
         options = typeof option === 'object' && option;
-	  
+    
       if ( !data ) {
-	      $this.data( 'fc_autocomplete',
-	        ( data = new Autocomplete( this, options ) ));
+        $this.data( 'fc_autocomplete',
+          ( data = new Autocomplete( this, options ) ));
       }
     });
   }
