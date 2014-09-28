@@ -16,23 +16,4 @@
     });
   };
 
-  // Static method.
-  $.fc_autocomplete = function(options) {
-    // Override default options with passed-in options.
-    options = $.extend({}, $.fc_autocomplete.options, options);
-    // Return something awesome.
-    return 'awesome' + options.punctuation;
-  };
-
-  // Static method default options.
-  $.fc_autocomplete.options = {
-    punctuation: '.'
-  };
-
-  // Custom selector.
-  $.expr[':'].fc_autocomplete = function(elem) {
-    // Is this element awesome?
-    return $(elem).text().indexOf('awesome') !== -1;
-  };
-
 }(jQuery));

@@ -1,4 +1,4 @@
-/*! Foodclub autocomplete jquery plugin - v0.1.0 - 2014-09-21
+/*! Foodclub autocomplete jquery plugin - v0.1.0 - 2014-09-28
 * https://github.com/djembuka/fc-autocomplete
 * Copyright (c) 2014 Tatiana; Licensed MIT */
 (function($) {
