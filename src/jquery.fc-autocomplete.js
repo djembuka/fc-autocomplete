@@ -21,7 +21,7 @@
   };
   
   Autocomplete.DEFAULTS = {
-      itemsNum : {
+    itemsNum : {
       recipes: 5,
       dishes: 3,
       ingredients: 3,
@@ -42,7 +42,7 @@
   };
   
   Autocomplete.prototype.init = function ( element, options ) {
-    this.enabled   = true
+    this.enabled   = true;
     this.$element  = $( element );
     this.options = this.getOptions( options );
     this.$input = this.$element.find(".b-recipe-search__input");
@@ -51,6 +51,8 @@
     //this.$delete = this.$elem.find(".b-recipe-search__delete");
     //this.$button = this.$elem.find(".b-recipe-search__button");
     // ! Create option for additional form elements like delete and send buttons.
+		
+		this.buildHtml();
   };
 
   Autocomplete.prototype.getDefaults = function () {
@@ -87,7 +89,9 @@
       var $this = $( this ),
         data = $this.data( "fc_autocomplete" );
       
-      if ( !data ) return;
+      if ( !data ) {
+				return;
+			}
       
       if ( typeof data[option] === "function" ) {
         data[ option ]( params );
@@ -100,15 +104,18 @@
       }      
     });
     
-    if ( result || result === "" ) return result;
+    if ( result || result === "" ) {
+			return result;
+		}
+		
     return this;
   }
   
   //If call for method or a new instance
     return this.each( function () {
       var $this   = $( this ),
-        data    = $this.data( 'fc_autocomplete' ),
-        options = typeof option === 'object' && option;
+					data    = $this.data( 'fc_autocomplete' ),
+					options = typeof option === 'object' && option;
     
       if ( !data ) {
         $this.data( 'fc_autocomplete',
@@ -129,6 +136,6 @@
   $.fn.fc_autocomplete.noConflict = function () {
     $.fn.fc_autocomplete = old;
     return this;
-  }
+  };
 
 }( jQuery ));

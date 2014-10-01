@@ -132,5 +132,40 @@
     equal( this.$elem.fc_autocomplete( "itemsNum" ).recipes, 5, "itemsNum is set" );
     equal( this.$elem.fc_autocomplete( "itemTag" ), "li", "itemTag is set" );
   });
+	
+	test( "Check default vars", function() {
+		expect(8);
+		var instance = this.$elem.data( "fc_autocomplete" );
+		
+		strictEqual( instance.enabled, true, "enabled is set" );
+		ok( instance.$element instanceof $, "$element is a jQuery object" );
+		equal( instance.$element[0].tagName, this.$elem[0].tagName, "$element tag is correct" );
+		ok( instance.options instanceof Object, "options is an object" );
+		ok( instance.$input instanceof $, "$input is a jQuery object" );
+		equal( instance.$input[0].tagName, "INPUT", "$input is input" );
+		equal( instance.$activeItem, instance.$input, "$activeItem is $input by default" );
+		equal( instance.elemValue, "", "elemValue is an empty string in the setup" );
+	});
 
+	module( "Build html", {
+		setup: function() {
+			this.$elem = $( "#recipeSearch" );
+      this.$elem.fc_autocomplete();
+		},
+		teardown: function() {
+			this.$elem.fc_autocomplete( "destroy" );
+		}
+	});
+	
+	test( "Search list element", function() {
+		expect(3);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				$searchList = this.$elem.find( "#recipe_search_list" );
+		
+		ok( $searchList.length, "Search list exists" );
+		equal( $searchList.parent()[0].tagName,
+			instance.$input.parent()[0].tagName, "Search list is sibling to $input" );
+		equal( $searchList.children( "ul" ).length, 1, "Search list has UL inside" );
+	});
+	
 }(jQuery));
