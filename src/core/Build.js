@@ -6,11 +6,9 @@
 	var Autocomplete = $.fn.fc_autocomplete.Constructor;
 	
 	Autocomplete.prototype.buildHtml = function() {
-		this.$list = $( '<ul class="b-recipe-search__ul"></ul>' );
-		this.$input
-			.parent()
-			.append( $( '<div id="recipe_search_list"></div>' )
-									.append( this.$list ));
+		this.$input.after( $( '<div id="recipe_search_list">' +
+		'<ul class="b-recipe-search__ul"></ul></div>' ));
+		this.$list = this.$input.parent().find( ".b-recipe-search__ul" );
 	};
 	
 }( jQuery ));

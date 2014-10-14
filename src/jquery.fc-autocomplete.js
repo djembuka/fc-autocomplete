@@ -38,7 +38,9 @@
     headingClass: "b-rs__heading",
     strClass: "b-rs-str",
     searchAllClass: "b-rs__search-all",
-    itemTag: "li"
+    itemTag: "li",
+		foodclubJSON: undefined,
+		foodclubJSONUrl: "/php/foodclubJSON.php"
   };
   
   Autocomplete.prototype.init = function ( element, options ) {
@@ -53,6 +55,7 @@
     // ! Create option for additional form elements like delete and send buttons.
 		
 		this.buildHtml();
+		this.handleEvents();
   };
 
   Autocomplete.prototype.getDefaults = function () {
@@ -81,37 +84,37 @@
 
   function Plugin( option, params ) {
   
-  //If call the plugin for an option value
-  var result;
-  
-  if ( typeof option === 'string' ) {
-    this.each( function() {
-      var $this = $( this ),
-        data = $this.data( "fc_autocomplete" );
-      
-      if ( !data ) {
-				return;
+		//If call the plugin for an option value
+		var result;
+		
+		if ( typeof option === 'string' ) {
+			this.each( function() {
+				var $this = $( this ),
+					data = $this.data( "fc_autocomplete" );
+				
+				if ( !data ) {
+					return;
+				}
+				
+				if ( typeof data[option] === "function" ) {
+					data[ option ]( params );
+				
+				} else if ( params ) {
+					data.setOption( option, params );
+				
+				} else {
+					result = data.getOption( option ) || "";
+				}      
+			});
+			
+			if ( result || result === "" ) {
+				return result;
 			}
-      
-      if ( typeof data[option] === "function" ) {
-        data[ option ]( params );
-      
-      } else if ( params ) {
-        data.setOption( option, params );
-      
-      } else {
-        result = data.getOption( option ) || "";
-      }      
-    });
-    
-    if ( result || result === "" ) {
-			return result;
+			
+			return this;
 		}
 		
-    return this;
-  }
-  
-  //If call for method or a new instance
+		//If call for method or a new instance
     return this.each( function () {
       var $this   = $( this ),
 					data    = $this.data( 'fc_autocomplete' ),

@@ -167,5 +167,79 @@
 			instance.$input.parent()[0].tagName, "Search list is sibling to $input" );
 		equal( $searchList.children( "ul" ).length, 1, "Search list has UL inside" );
 	});
+
+	module( "Handle events", {
+		setup: function() {
+			this.$elem = $( "#recipeSearch" );
+      this.$elem.fc_autocomplete();
+		},
+		teardown: function() {
+			this.$elem.fc_autocomplete( "destroy" );
+		}
+	});
+	
+	test( "Check focus handler", function() {
+		expect(1);
+		var instance = this.$elem.data( "fc_autocomplete" );
+		
+		instance.$input.trigger( $.Event( "focus" ) );
+		ok( instance.$input.hasClass( "i-focused" ), "Focus adds class i-focused" );
+	});
+
+	module( "Init JSON data", {
+		setup: function() {
+			this.$elem = $( "#recipeSearch" );
+      this.$elem.fc_autocomplete();
+		},
+		teardown: function() {
+			this.$elem.fc_autocomplete( "destroy" );
+		}
+	});
+	
+	test( "init all data object", function() {
+		expect(7);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				mockObj = {
+					"array": [
+						"some element",
+						{
+							"title": "\u0419"
+						}
+					],
+					"title": "\u0451",
+					"object": {
+						"title": "Title with \u0439 \u0401",
+						"array": [
+							"78 ingredients",
+							"spagetti",
+							"risotto"
+						]
+					}
+				};
+		
+		ok( instance.makeLowerEITitles instanceof Function, "makeLowerEITitles is a function" );
+		
+		instance.makeLowerEITitles( mockObj );
+		ok( mockObj.array[1].lowerTitle, "obj -> arr -> obj, make lowerTitle" );
+		equal( mockObj.array[1].lowerTitle, "\u0438", "Make it lower, replace \u0439" );
+		
+		ok( mockObj.lowerTitle, "obj, make lowerTitle" );
+		equal( mockObj.lowerTitle, "\u0435", "Make it lower, replace \u0451" );
+		
+		ok( mockObj.object.lowerTitle, "obj -> obj, make lowerTitle" );
+		equal( mockObj.object.lowerTitle, "title with \u0438 \u0435", "Make it lower, replace \u0439, \u0451" );
+	});
+	
+	test( "Replace E, I and make lower", function() {
+		expect(1);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				mockObj = {
+					"title": "\u0419 \u0401",
+					"object": {}
+				};
+		
+		instance.lowerEI( mockObj );
+		equal( mockObj.lowerTitle, "\u0438 \u0435", "All done." );
+	});
 	
 }(jQuery));
