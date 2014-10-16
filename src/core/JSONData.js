@@ -42,11 +42,12 @@
 				self.makeLowerEITitles( elem );
 			});
 		} else if ( json instanceof Object ) {
+			if ( json.hasOwnProperty( "title" )) {
+				this.lowerEI( json );
+			}
 			for ( key in json ) {
-				if ( json.hasOwnProperty( key ) && json[key].title ) {
-					this.lowerEI( json[key] );
-				}
-				if ( json[key] instanceof Object || json[key] instanceof Array ) {
+				if (( json.hasOwnProperty( key ) && json[key] instanceof Object ) ||
+						( json.hasOwnProperty( key ) && json[key] instanceof Array )) {
 					this.makeLowerEITitles( json[key] );
 				}
 			}

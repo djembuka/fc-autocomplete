@@ -185,6 +185,15 @@
 		instance.$input.trigger( $.Event( "focus" ) );
 		ok( instance.$input.hasClass( "i-focused" ), "Focus adds class i-focused" );
 	});
+	
+	test( "Check blur handler", function() {
+		expect(2);
+		var instance = this.$elem.data( "fc_autocomplete" );
+		
+		instance.$input.trigger( $.Event( "blur" ) );
+		ok( !instance.$input.hasClass( "i-focused" ), "Blur removes class i-focused" );
+		ok( instance.$list.is( ":hidden" ), "List is hidden" );
+	});
 
 	module( "Init JSON data", {
 		setup: function() {
