@@ -251,4 +251,76 @@
 		equal( mockObj.lowerTitle, "\u0438 \u0435", "All done." );
 	});
 	
+	module( "UI", {
+		setup: function() {
+			this.$elem = $( "#recipeSearch" );
+      this.$elem.fc_autocomplete();
+		},
+		teardown: function() {
+			this.$elem.fc_autocomplete( "destroy" );
+		}
+	});
+	
+	test( "highlightItem", function() {
+		expect(2);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				$li = $( '<li class="' + instance.options.itemClass + '"></li>' );
+		
+		instance.highlightItem();
+		ok( instance.$input.hasClass( "i-hover" ), "Input highlighted by default." );
+		
+		instance.highlightItem( $li );
+		ok( $li.hasClass( "i-hover" ), "List item highlighted." );
+	});
+	
+	test( "dimItem", function() {
+		expect(2);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				$li = $( '<li class="' + instance.options.itemClass + '"></li>' );
+		
+		instance.$input.addClass( "i-hover" );
+		instance.dimItem();
+		ok( !instance.$input.hasClass( "i-hover" ), "Input dimmed by default." );
+		
+		$li.addClass( "i-hover" );
+		instance.dimItem( $li );
+		ok( !$li.hasClass( "i-hover" ), "List item dimmed." );
+	});
+	
+	test( "showHideDeleteButton", function() {
+		expect(1);
+		ok( this.$elem, "Test is needed." );
+	});
+	
+	module( "Security", {
+		setup: function() {
+			this.$elem = $( "#recipeSearch" );
+      this.$elem.fc_autocomplete();
+		},
+		teardown: function() {
+			this.$elem.fc_autocomplete( "destroy" );
+		}
+	});
+	
+	test( "cyrillic", function() {
+		expect(1);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				testString = "\u0401\u0444gh\04aa";
+		
+		instance.$input.val( testString );
+		instance.cyrillic();
+		equal( instance.$input.val(), "\u0401\u0444",
+			"Value is cyrillified." );
+	});
+	
+	test( "latinFree", function() {
+		expect(1);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				testString = "\u0401\u0444gh\04aa",
+				string = instance.latinFree( testString );
+		
+		equal( string, "\u0401\u0444",
+			"Slice from beginning to the first latin symbol." );
+	});
+	
 }(jQuery));

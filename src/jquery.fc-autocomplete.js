@@ -48,7 +48,7 @@
     this.$element  = $( element );
     this.options = this.getOptions( options );
     this.$input = this.$element.find(".b-recipe-search__input");
-    this.$activeItem = this.$input;// active list item (highlighted by keyboard arrows)
+    this.$activeItem = this.$input;// active list item (highlighted by keyboard navigation)
     this.elemValue = $.trim( this.$input.val() );
     //this.$delete = this.$elem.find(".b-recipe-search__delete");
     //this.$button = this.$elem.find(".b-recipe-search__button");
