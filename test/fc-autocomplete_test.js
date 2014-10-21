@@ -323,4 +323,50 @@
 			"Slice from beginning to the first latin symbol." );
 	});
 	
+	module( "Search", {
+		setup: function() {
+			this.$elem = $( "#recipeSearch" );
+      this.$elem.fc_autocomplete();
+		},
+		teardown: function() {
+			this.$elem.fc_autocomplete( "destroy" );
+		}
+	});
+	
+	test( "appendImages", function() {
+		expect(2);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				$img;
+		
+		instance.$list.append( '<div data-image="imgSrc"></div>' );
+		instance.appendImages();
+		$img = instance.$list.find( "img" );
+		
+		equal( $img.length, 1, "Append image" );
+		equal( $img.attr( "src" ), "imgSrc", "The image has correct src" );
+	});
+	
+	test( "getTimeFromMinutes", function() {
+		expect(6);
+		var instance = this.$elem.data( "fc_autocomplete" ),
+				result;
+		
+		result = instance.getTimeFromMinutes( 1 );
+		equal( result.hours, 0, "Calculate hours" );
+		equal( result.minutes, 1, "Calculate minutes" );
+		
+		result = instance.getTimeFromMinutes( 84 );
+		equal( result.hours, 1, "Calculate hours" );
+		equal( result.minutes, 24, "Calculate minutes" );
+		
+		result = instance.getTimeFromMinutes( 156 );
+		equal( result.hours, 2, "Calculate hours" );
+		equal( result.minutes, 36, "Calculate minutes" );
+	});
+	
+	test( "getIndex", function() {
+		expect(1);
+		ok( this.$elem, "All other tests are needed." );
+	});
+	
 }(jQuery));

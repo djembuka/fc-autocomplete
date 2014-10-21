@@ -11,5 +11,6 @@
   "boss": true,
   "eqnull": true,
   "node": true,
-  "multistr": true
+  "multistr": true,
+	"supernew": true
 }
